@@ -1,60 +1,35 @@
 // Import dependencies
-const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
-
-// MongoDB URL from the docker-compose file
-const dbHost = 'mongodb://database/mean-docker';
-
-// Connect to mongodb
-mongoose.connect(dbHost);
-
-// create mongoose schema
-const userSchema = new mongoose.Schema({
-  name: String,
-  age: Number
-});
-
-// create mongoose model
-const User = mongoose.model('User', userSchema);
+const accessories = require('../libs/accessories.js');
 
 /* GET api listing. */
 router.get('/', (req, res) => {
         res.send('api works');
 });
 
-/* GET all users. */
-router.get('/users', (req, res) => {
-    User.find({}, (err, users) => {
-        if (err) res.status(500).send(error)
+router.post('/upload', (req, res) => {
+  if(!req.body.brand || !req.files)
+    return res.status(400).send('Required params missing.');
 
-        res.status(200).json(users);
-    });
-});
+  const brand = req.body.brand;
 
-/* GET one users. */
-router.get('/users/:id', (req, res) => {
-    User.findById(req.param.id, (err, users) => {
-        if (err) res.status(500).send(error)
+  const origin_file = req.files.origin_file;
+  const sheet_file = req.files.sheet_file;
 
-        res.status(200).json(users);
-    });
-});
+  origin_file.mv('upload/origin_file.json', function(err) {
+    if (err)
+      return res.status(500).send(err);
 
-/* Create a user. */
-router.post('/users', (req, res) => {
-    let user = new User({
-        name: req.body.name,
-        age: req.body.age
-    });
+      sheet_file.mv('upload/sheet_file.csv', function(err) {
+        if (err)
+          return res.status(500).send(err);
 
-    user.save(error => {
-        if (error) res.status(500).send(error);
-
-        res.status(201).json({
-            message: 'User created successfully'
-        });
-    });
+          accessories(brand, (status, message) => {
+            res.status(status).send(message);
+          });
+      });
+  });
 });
 
 module.exports = router;

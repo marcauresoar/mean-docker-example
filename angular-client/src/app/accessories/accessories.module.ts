@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AccessoriesComponent } from './accessories.component';
 import { AccessoriesFormComponent } from './accessories-form/accessories-form.component';
@@ -16,7 +17,8 @@ import { AccessoriesListItemComponent } from './accessories-list/accessories-lis
     AccessoriesListItemComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ]
 })
 export class AccessoriesModule {}

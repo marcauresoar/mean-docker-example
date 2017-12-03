@@ -1,24 +1,32 @@
 <div class="panel panel-default">
   <div class="panel-heading">Import new spreadsheet</div>
   <div class="panel-body">
-    <form>
+    <form [formGroup]="accessoriesForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
             <label for="brand">Brand</label>
-            <select class="form-control" name="brand">
-              <option>Fiat</option>
-              <option>Jeep</option>
+            <select
+              class="form-control"
+              name="brand"
+              (change)="onChangeBrand($event)"
+              formControlName="brand">
+              <option
+                [value]="brand.id"
+                *ngFor="let brand of brands;">{{ brand.name }}</option>
             </select>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="model">Model</label>
-            <select class="form-control" name="model">
-              <option>Argo</option>
-              <option>Toro</option>
-              <option>Mobi</option>
+            <select
+              class="form-control"
+              name="model"
+              formControlName="model">
+              <option
+                [value]="model.id"
+                *ngFor="let model of models;">{{ model.name }}</option>
             </select>
           </div>
         </div>
@@ -27,13 +35,21 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="origin_file">Car model file</label>
-            <input type="file" name="origin_file">
+            <input
+              type="file"
+              name="origin_file"
+              formControlName="origin_file"
+              (change)="selectOriginFile($event)">
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label for="sheet_file">Accessories spreadsheet</label>
-            <input type="file" name="sheet_file">
+            <input
+              type="file"
+              name="sheet_file"
+              formControlName="sheet_file"
+              (change)="selectSheetFile($event)">
           </div>
         </div>
       </div>
