@@ -3,30 +3,16 @@
   <div class="panel-body">
     <form [formGroup]="accessoriesForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <div class="form-group">
             <label for="brand">Brand</label>
             <select
               class="form-control"
               name="brand"
-              (change)="onChangeBrand($event)"
               formControlName="brand">
               <option
                 [value]="brand.id"
                 *ngFor="let brand of brands;">{{ brand.name }}</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="model">Model</label>
-            <select
-              class="form-control"
-              name="model"
-              formControlName="model">
-              <option
-                [value]="model.id"
-                *ngFor="let model of models;">{{ model.name }}</option>
             </select>
           </div>
         </div>
@@ -55,7 +41,20 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <button type="submit" class="btn btn-primary pull-right">Submit files</button>
+          <button type="submit" class="btn btn-primary">Submit files</button>
+          <button type="button" class="btn btn-warning" (click)="onClear()">Clear</button>
+        </div>
+      </div>
+      <div class="row" *ngIf="showProgress">
+        <div class="col-md-12">
+          <hr>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+              [style.width]="progress + '%'">
+              {{ progress }}% complete.
+            </div>
+          </div>
+          <p>{{ message }}</p>
         </div>
       </div>
     </form>
