@@ -1,5 +1,6 @@
 
 const fs = require('fs');
+const accStore = require('./accessories.store.js');
 
 const processRequest = (brand, callback) => {
   if(brand === 'fiat') {
@@ -58,11 +59,11 @@ const processSheetDataFiat = (callback) => {
         arrFinal[AC_VERSION][AC_ORDER - 1] = obj;
       }
 
-      processOriginFile(arrFinal, callback);
+      processOriginFileFiat(arrFinal, callback);
   });
 };
 
-const processOriginFile = (arrAccessories, callback) => {
+const processOriginFileFiat = (arrAccessories, callback) => {
   fs.readFile('upload/origin_file.json', 'utf8', function(err, data){
     if (err)
       return callback(500, err);
@@ -78,13 +79,16 @@ const processOriginFile = (arrAccessories, callback) => {
         }
       }
     }
+    const id = new Date().valueOf();
+    const filePath = 'download/' + id + ".json";
 
-    fs.writeFile("download/output.json", JSON.stringify(fileData), function(err) {
-        if(err) {
+    fs.writeFile(filePath, JSON.stringify(fileData), function(err) {
+        if(err)
             return console.log(err);
-        }
 
-        return callback(200, 'The file was saved!');
+        accStore.createAccessoryLog(id, 'Fiat', filePath, (status, message) => {
+          return callback(status, message);
+        });
     });
   });
 };

@@ -13,7 +13,7 @@ export class AccessoriesService {
     formdata.append('origin_file', origin_file);
     formdata.append('sheet_file', sheet_file);
 
-    const req = new HttpRequest('POST', 'http://localhost:3000/upload', formdata, {
+    const req = new HttpRequest('POST', 'http://localhost:3000/accessories/upload', formdata, {
       reportProgress: true,
       responseType: 'text'
     });
