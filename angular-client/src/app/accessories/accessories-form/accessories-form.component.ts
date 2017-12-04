@@ -24,6 +24,7 @@ export class AccessoriesFormComponent implements OnInit {
 
   showProgress: boolean = false;
   progress: number = 50.0;
+  showMessage: boolean = false;
   message: string = 'Uploading files...';
 
   constructor(private accService: AccessoriesService) { }
@@ -34,8 +35,6 @@ export class AccessoriesFormComponent implements OnInit {
       'origin_file': new FormControl(''),
       'sheet_file': new FormControl(''),
     });
-
-    console.log(this.accessoriesForm);
   }
 
   selectOriginFile(event) {
@@ -47,7 +46,22 @@ export class AccessoriesFormComponent implements OnInit {
   }
 
   onSubmit(){
+    this.reset();
+
+    if(this.origin_file == null) {
+      this.showMessage = true;
+      this.message = 'Please, select a file for Car model file.'
+      return;
+    }
+
+    if(this.sheet_file == null) {
+      this.showMessage = true;
+      this.message = 'Please, select a file for Accessories spreadsheet.'
+      return;
+    }
+
     this.showProgress = true;
+    this.showMessage = true;
     this.message = 'Uploading files...';
     const brand = this.accessoriesForm.get('brand').value;
     this.accService.importFiles(brand, this.origin_file, this.sheet_file).subscribe(event => {
@@ -55,6 +69,9 @@ export class AccessoriesFormComponent implements OnInit {
         this.progress = Math.round(100 * event.loaded / event.total);
       } else if (event instanceof HttpResponse) {
         this.message = (<HttpResponse<string>>event).body;
+      } else {
+        this.message = 'An error has occurred!';
+        this.showProgress = false;
       }
     });
   }
@@ -64,7 +81,12 @@ export class AccessoriesFormComponent implements OnInit {
     this.accessoriesForm.get('brand').setValue(this.brands[0].id);
     this.origin_file = null;
     this.sheet_file = null;
+    this.reset();
+  }
+
+  reset(){
     this.showProgress = false;
+    this.showMessage = false;
     this.progress = 0.0;
     this.message = '';
   }

@@ -21,4 +21,12 @@ export class AccessoriesService {
     return this.http.request(req);
   }
 
+  listImportLog(){
+    const req = new HttpRequest('GET', 'http://localhost:3000/accessories/list', {
+      resposeType: 'json'
+    });
+
+    return this.http.request(req);
+  }
+
 }

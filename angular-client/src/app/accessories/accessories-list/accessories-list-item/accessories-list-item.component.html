@@ -2,15 +2,16 @@
   <div class="panel-body">
     <div class="row">
       <div class="col-md-6">
-        <p><b>ID:</b> 2363kll2j1230109312jf</p>
-        <p><b>Brand:</b> Fiat</p>
-        <p><b>Imported at:</b> 02/12/2017</p>
+        <p><b>ID:</b> {{ item.id }}</p>
+        <p><b>Brand:</b> {{ item.brand }}</p>
+        <p><b>Imported at:</b> {{ item.created_at | dateFormatted }}</p>
       </div>
       <div class="col-md-6">
-        <p><b>Info:</b> The file was imported successfully!</p>
-        <button type="button" class="btn btn-success" title="Download final file">
-          <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-        </button>
+        <a [href]="'http://localhost:3000/accessories/' + item.filePath">
+          <button type="button" class="btn btn-success" title="Download final file">
+            <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+          </button>
+        </a>
       </div>
     </div>
   </div>

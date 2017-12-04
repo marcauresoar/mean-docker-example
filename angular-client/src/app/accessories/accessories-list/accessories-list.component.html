@@ -2,6 +2,7 @@
   <div class="panel-heading">Imported files list</div>
   <div class="panel-body">
     <app-accessories-list-item
-      *ngFor="let i of list"></app-accessories-list-item>
+    *ngFor="let item of list"
+    [item]="item"></app-accessories-list-item>
   </div>
 </div>

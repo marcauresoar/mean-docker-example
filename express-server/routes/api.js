@@ -39,4 +39,10 @@ router.get('/accessories/list', (req, res) => {
   });
 });
 
+router.get('/accessories/download/:fileName', function(req, res){
+  const fileName = req.param('fileName');
+  const filePath = __dirname + '/../download/' + fileName;
+  res.download(filePath);
+});
+
 module.exports = router;

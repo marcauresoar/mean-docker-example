@@ -11,13 +11,16 @@ import { AccessoriesListItemComponent } from './accessories-list/accessories-lis
 
 import { AccessoriesService } from './accessories.service';
 
+import { DatePipe } from '../core/date.pipe';
+
 @NgModule({
   declarations: [
     AccessoriesComponent,
     AccessoriesFormComponent,
     AccessoriesInfoComponent,
     AccessoriesListComponent,
-    AccessoriesListItemComponent
+    AccessoriesListItemComponent,
+    DatePipe
   ],
   imports: [
     CommonModule,
