@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose');
 
-const dbHost = 'mongodb://localhost:27017/';
+const dbHost = 'mongodb://database/mean-docker';
 
 // Connect to mongodb
 mongoose.connect(dbHost);

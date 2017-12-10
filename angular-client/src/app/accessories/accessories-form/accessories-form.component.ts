@@ -73,7 +73,7 @@ export class AccessoriesFormComponent implements OnInit {
         this.message = 'An error has occurred!';
         this.showProgress = false;
       }
-    });
+    }, error => console.log(error));
   }
 
   onClear(){

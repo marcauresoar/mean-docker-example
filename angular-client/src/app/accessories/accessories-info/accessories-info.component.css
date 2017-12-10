@@ -1,0 +1,10 @@
+.title {
+  font-size: 14px;
+  font-weight: bold;
+}
+.panel-body {
+  word-wrap: break-word;
+}
+p i {
+  font-size: 12px;
+}

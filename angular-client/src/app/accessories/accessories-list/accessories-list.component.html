@@ -1,5 +1,8 @@
 <div class="panel panel-default">
-  <div class="panel-heading">Imported files list</div>
+  <div class="panel-heading clearfix">
+    <div class="pull-left">Imported files list</div>
+    <button type="button" class="btn btn-sm btn-primary pull-right" (click)="onRefreshList()">Refresh list</button>
+  </div>
   <div class="panel-body">
     <app-accessories-list-item
     *ngFor="let item of list"
